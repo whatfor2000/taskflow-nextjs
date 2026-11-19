@@ -1,26 +1,206 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces */
+  --tf-paper: #eff2f6;
+  --tf-canvas: #f7f9fb;
+  --tf-grid-dot: #d5dce6;
+  --tf-grid-zone: #c3cedd;
+  --tf-surface: #ffffff;
+  --tf-surface-2: #f4f7fa;
+  --tf-surface-3: #eaeff5;
+
+  /* Ink */
+  --tf-ink: #101a2c;
+  --tf-ink-2: #4a5a70;
+  --tf-ink-3: #8494a8;
+
+  /* Lines */
+  --tf-line: #d7dfe9;
+  --tf-line-strong: #b9c6d6;
+
+  /* Brand / semantic */
+  --tf-brand: #1f4bff;
+  --tf-brand-ink: #0b2db8;
+  --tf-brand-soft: #e6ebff;
+  --tf-decision: #e8820c;
+  --tf-decision-ink: #9a5405;
+  --tf-decision-soft: #fdf0dc;
+  --tf-complete: #12805c;
+  --tf-complete-soft: #ddf3ea;
+  --tf-danger: #d93a2b;
+  --tf-danger-soft: #fbe5e2;
+  --tf-ring: var(--tf-brand);
+
+  /* Route palette */
+  --tf-route-red: #e1342b;
+  --tf-route-amber: #f2a900;
+  --tf-route-green: #1e8e3e;
+  --tf-route-violet: #7b4bd6;
+  --tf-route-cyan: #0aa5c2;
+  --tf-route-pink: #d63384;
+
+  --tf-ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --tf-dur-fast: 120ms;
+  --tf-dur-med: 200ms;
+  --tf-dur-slow: 350ms;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--tf-paper);
+  --color-canvas: var(--tf-canvas);
+  --color-grid-dot: var(--tf-grid-dot);
+  --color-grid-zone: var(--tf-grid-zone);
+  --color-surface: var(--tf-surface);
+  --color-surface-2: var(--tf-surface-2);
+  --color-surface-3: var(--tf-surface-3);
+  --color-ink: var(--tf-ink);
+  --color-ink-2: var(--tf-ink-2);
+  --color-ink-3: var(--tf-ink-3);
+  --color-line: var(--tf-line);
+  --color-line-strong: var(--tf-line-strong);
+  --color-brand: var(--tf-brand);
+  --color-brand-ink: var(--tf-brand-ink);
+  --color-brand-soft: var(--tf-brand-soft);
+  --color-decision: var(--tf-decision);
+  --color-decision-ink: var(--tf-decision-ink);
+  --color-decision-soft: var(--tf-decision-soft);
+  --color-complete: var(--tf-complete);
+  --color-complete-soft: var(--tf-complete-soft);
+  --color-danger: var(--tf-danger);
+  --color-danger-soft: var(--tf-danger-soft);
+  --color-route-red: var(--tf-route-red);
+  --color-route-amber: var(--tf-route-amber);
+  --color-route-green: var(--tf-route-green);
+  --color-route-violet: var(--tf-route-violet);
+  --color-route-cyan: var(--tf-route-cyan);
+  --color-route-pink: var(--tf-route-pink);
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --tf-paper: #0c1017;
+    --tf-canvas: #11161f;
+    --tf-grid-dot: #1e2632;
+    --tf-grid-zone: #2a3546;
+    --tf-surface: #151b26;
+    --tf-surface-2: #1b2331;
+    --tf-surface-3: #222c3d;
+    --tf-ink: #e8ecf4;
+    --tf-ink-2: #9aa9be;
+    --tf-ink-3: #5f6e84;
+    --tf-line: #242e3e;
+    --tf-line-strong: #3a4759;
+    --tf-brand: #5b7cff;
+    --tf-brand-ink: #9db1ff;
+    --tf-brand-soft: #16214a;
+    --tf-decision: #f5a623;
+    --tf-decision-ink: #ffc968;
+    --tf-decision-soft: #2a2110;
+    --tf-complete: #2bbf8b;
+    --tf-complete-soft: #0e2a21;
+    --tf-danger: #ff6b5b;
+    --tf-danger-soft: #2e1613;
   }
 }
 
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
 }
+
+body {
+  background: var(--tf-paper);
+  color: var(--tf-ink);
+}
+
+.font-display {
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-stretch: 112%;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.tf-focus {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+}
+
+.tf-route-pulse {
+  stroke-dasharray: 4 10;
+  animation: tf-service 1.6s linear infinite;
+}
+
+@keyframes tf-service {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+@keyframes tf-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: tf-fade-up 240ms var(--tf-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .tf-route-pulse {
+    animation: none !important;
+  }
+}
+
+/* React Flow base overrides */
+.react-flow__attribution {
+  background: transparent;
+}
+.react-flow__controls {
+  box-shadow: 0 1px 2px rgba(16, 26, 44, 0.06);
+  border: 1px solid var(--tf-line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.react-flow__controls button {
+  background: var(--tf-surface);
+  border-bottom: 1px solid var(--tf-line);
+  color: var(--tf-ink);
+}
+.react-flow__controls button:hover {
+  background: var(--tf-surface-3);
+}
+.react-flow__minimap {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-line);
+  border-radius: 8px;
+}
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: var(--tf-surface);
+  border: 2px solid var(--tf-line-strong);
+}
+.react-flow__handle:hover {
+  border-color: var(--tf-brand);
+  transform: scale(1.1);
+}
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
